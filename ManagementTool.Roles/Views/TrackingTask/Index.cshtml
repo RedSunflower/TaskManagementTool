@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<ManagementTool.Roles.Models.TrackingTask>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Tasks";
 }
 
-<h2>Index</h2>
-
+<hr />
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -35,6 +33,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Priority)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUserDetails)
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -42,8 +43,7 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProjectName)
-                @Html.HiddenFor(modelItem => item.Id)
-                @Html.HiddenFor(modelItem => item.ParentId)
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TaskName)
@@ -58,10 +58,13 @@
                 @Html.DisplayFor(modelItem => item.TillDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                <div class="status-state" data-title="@Html.DisplayFor(modelItem => item.Id)" data-content="@Html.DisplayFor(modelItem => item.ParentId)">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </div>
+
             </td>
             <td>
-                <div class="progress">
+                <div class="progress id-@Html.DisplayFor(modelItem => item.Id)">
                     <div class="progress-bar" role="progressbar" aria-valuenow="100"
                          aria-valuemin="0" aria-valuemax="100" style="width:@Html.DisplayFor(modelItem => item.Progress)">
                         <!--TODO: to change value of width-->
@@ -69,19 +72,40 @@
                     </div>
                 </div>
             </td>
-            
+
             <td>
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                @Html.ActionLink("AddSubTask", "CreateSubTask", new { id = item.Id }) |
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.DisplayFor(modelItem => item.ApplicationUserDetails)
             </td>
+
+            @if (item.ParentId != 0)
+            {
+                <td >
+                    @Html.ActionLink("AddSubTask", "CreateSubTask", new { id = item.Id }) |
+                    @Html.ActionLink("EditSubtask", "EditSubtask", new { id = item.Id }) |
+                    @Html.ActionLink("SubtaskDetails", "SubtaskDetails", new { id = item.Id }) |
+                    @Html.ActionLink("DeleteSubtask", "DeleteSubtask", new { id = item.Id })
+
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("AddSubTask", "CreateSubTask", new { id = item.Id }) |
+                    @Html.ActionLink("AssignUser", "AssignUser", new { id = item.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                </td>
+            }
+
         </tr>
     }
 
 </table>
-<script src="~/Scripts/proressBar.js"></script>
+<script type="module" src="~/Scripts/script.js" crossorigin="anonymous">
+</script>
 

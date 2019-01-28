@@ -2,18 +2,15 @@
 
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add new task";
 }
-
-<h2>Create</h2>
-
+<h4>Add new task</h4>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>TestData</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -65,13 +62,14 @@
             @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Progress, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Progress, new SelectList(ViewBag.ProgressList, "Value", "Text", ViewBag.ProgressList), new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Progress, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Progress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Progress, new SelectList(ViewBag.ProgressList, "Value", "Text", ViewBag.ProgressList), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Progress, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-default" />

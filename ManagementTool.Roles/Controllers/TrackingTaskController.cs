@@ -1,111 +1,181 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ManagementTool.Roles.Models;
 using ManagementTool.Roles.Repository;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ManagementTool.Roles.Controllers
 {
     public class TrackingTaskController : Controller
     {
+        private ApplicationUserManager _userManager;
         private TrackingTaskRepository trackingTaskRepository = new TrackingTaskRepository();
-        // GET: TrackingTask
-        [Authorize]
-        public ActionResult Index()
+        public ApplicationUserManager UserManager
         {
-            return View(trackingTaskRepository.GetAll());
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
         }
         [CustomAuthorize]
-        // GET: TestDatas/Details/5
+        public ActionResult Index()
+        {
+            return View(trackingTaskRepository.GetAll().OrderBy(x=>x.ProjectName));
+        }
+        [CustomAuthorize(Roles = "Admin, Manager")]
         public ActionResult Details(int id)
         {
-            var testData = trackingTaskRepository.GetById(id);
-            if (testData == null)
+            var task = trackingTaskRepository.GetById(id);
+            if (task == null)
             {
                 return HttpNotFound();
             }
-            return View(testData);
+            return View(task);
         }
         [CustomAuthorize(Roles = "Admin, Manager")]
-        // GET: TestDatas/Create
         public ActionResult Create()
         {
-            ViewBag.ProgressList = CreateProgressList();
+           // ViewBag.ProgressList = CreateProgressList();
             return View();
            
+        }
+        
+        [CustomAuthorize(Roles = "Admin, Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(TrackingTask task)
+        {
+            trackingTaskRepository.Insert(task);
+            return RedirectToAction("Index");
+        }
+        [CustomAuthorize(Roles = "Admin, Manager")]
+        public ActionResult AssignUser(int id)
+        {
+            // ViewBag.ProgressList = CreateProgressList();
+            var task = trackingTaskRepository.GetById(id);
+            task.ApplicationUsers = UserManager.Users.ToList();
+            return View(task);
+        }
+        [CustomAuthorize(Roles = "Admin, Manager")]
+        [HttpPost]
+        public async Task<ActionResult> AssignUser(TrackingTask task)
+        {
+            foreach (var user in UserManager.Users.ToList())
+            {
+                if (user.Id == task.UserId)
+                {
+                    task.ApplicationUserDetails = user.FullName + " " + user.Surname;
+                    break;
+                }
+            }
+            trackingTaskRepository.UpdateUser(task);
+            await UserManager.SendEmailAsync(task.UserId, "You were assigned to task ",
+                "Please login to system to see the details. Your project is "+task.ProjectName+",your task is "+task.TaskName);
+            return RedirectToAction("Index");
+        }
+        [CustomAuthorize(Roles = "Admin, Manager")]
+        public ActionResult Edit(int id)
+        {
+           // ViewBag.ProgressList = CreateProgressList();
+            var task = trackingTaskRepository.GetById(id);
+            return View(task);
+        }
+
+        [CustomAuthorize(Roles = "Admin, Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit( TrackingTask task)
+        {
+            trackingTaskRepository.Update(task);
+            return RedirectToAction("Index");
+        }
+        [CustomAuthorize(Roles = "Admin, Manager")]
+        public ActionResult Delete(int id)
+        {
+            var task = trackingTaskRepository.GetById(id);
+            return View(task);
+        }
+
+        [CustomAuthorize(Roles = "Admin, Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(TrackingTask task)
+        {
+            var deletedTask = trackingTaskRepository.GetById(task.Id);
+            trackingTaskRepository.Delete(deletedTask.Id);
+            return RedirectToAction("Index");
         }
         [CustomAuthorize]
         public ActionResult CreateSubTask(int id)
         {
-            ViewBag.ProgressList = CreateProgressList();
+            //ViewBag.ProgressList = CreateProgressList();
             var createdTask = trackingTaskRepository.GetById(id);
             TrackingTask subtask = new TrackingTask();
             subtask.ParentId = createdTask.Id;
-            subtask.ProjectName = createdTask.ProjectName.ToString();
+            subtask.ProjectName = createdTask.ProjectName;
+            subtask.ApplicationUserDetails = createdTask.ApplicationUserDetails;
             return View(subtask);
 
         }
         [CustomAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateSubTask([Bind(Include = "Id,ProjectName,TaskName,TaskDescription,StartDate,TillDate,Status,Priority,ParentId,Progress")] TrackingTask subtask)
+
+        public ActionResult CreateSubTask(TrackingTask subtask)
         {
             trackingTaskRepository.Insert(subtask);
             return RedirectToAction("Index");
         }
 
-        // POST: TestDatas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [CustomAuthorize(Roles = "Admin, Manager")]
+        public ActionResult EditSubtask(int id)
+        {
+            //ViewBag.ProgressList = CreateProgressList();
+            var task = trackingTaskRepository.GetById(id);
+            return View(task);
+        }
+
+        [CustomAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectName,TaskName,TaskDescription,StartDate,TillDate,Status,Priority,ParentId,Progress")] TrackingTask task)
+        public ActionResult EditSubtask(TrackingTask task)
         {
-            trackingTaskRepository.Insert(task);
+            trackingTaskRepository.Update(task);
             return RedirectToAction("Index");
         }
-        [CustomAuthorize(Roles = "Admin, Manager")]
-        // GET: TestDatas/Edit/5
-        public ActionResult Edit(int id)
+        [CustomAuthorize]
+        public ActionResult DeleteSubtask(int id)
         {
-            ViewBag.ProgressList = CreateProgressList();
-            var testData = trackingTaskRepository.GetById(id);
-            return View(testData);
+            var task = trackingTaskRepository.GetById(id);
+            return View(task);
         }
 
-        // POST: TestDatas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [CustomAuthorize(Roles = "Admin, Manager")]
+        [CustomAuthorize]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectName,TaskName,TaskDescription,StartDate,TillDate,Status,Priority,Progress")] TrackingTask testData)
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSubtask(TrackingTask task)
         {
-            trackingTaskRepository.Update(testData);
+            var deletedTask = trackingTaskRepository.GetById(task.Id);
+            trackingTaskRepository.Delete(deletedTask.Id);
             return RedirectToAction("Index");
         }
-        [CustomAuthorize(Roles = "Admin, Manager")]
-        // GET: TestDatas/Delete/5
-        public ActionResult Delete(int id)
+        [CustomAuthorize]
+        public ActionResult SubtaskDetails(int id)
         {
-            var testData = trackingTaskRepository.GetById(id);
-            return View(testData);
+            var task = trackingTaskRepository.GetById(id);
+            if (task == null)
+            {
+                return HttpNotFound();
+            }
+            return View(task);
         }
-
-        // POST: TestDatas/Delete/5
-        [CustomAuthorize(Roles = "Admin, Manager")]
-        [HttpPost]
-        // [ValidateAntiForgeryToken]
-        public ActionResult Delete(TrackingTask testData)
-        {
-            var daletedTestData = trackingTaskRepository.GetById(testData.Id);
-            trackingTaskRepository.Delete(daletedTestData.Id);
-            return RedirectToAction("Index");
-        }
-
         public List<SelectListItem> CreateProgressList()
         {
             List<SelectListItem> list = new List<SelectListItem>

@@ -13,7 +13,7 @@ namespace ManagementTool.Roles.Repository
         private readonly ApplicationDbContext _context;
         public TrackingTaskRepository()
         {
-            _context = new ApplicationDbContext();
+             _context = new ApplicationDbContext();
         }
         public void Delete(int id)
         {
@@ -61,6 +61,21 @@ namespace ManagementTool.Roles.Repository
             oldTask.Status = modifiedTask.Status;
             oldTask.Priority = modifiedTask.Priority;
             oldTask.Progress = modifiedTask.Progress;
+            _context.SaveChanges();
+        }
+        public void UpdateUser(TrackingTask modifiedTask)
+        {
+            var oldTask = _context.Tasks.Find(modifiedTask.Id);
+            oldTask.ProjectName = modifiedTask.ProjectName;
+            oldTask.TaskName = modifiedTask.TaskName;
+            oldTask.TaskDescription = modifiedTask.TaskDescription;
+            oldTask.StartDate = modifiedTask.StartDate;
+            oldTask.TillDate = modifiedTask.TillDate;
+            oldTask.Status = modifiedTask.Status;
+            oldTask.Priority = modifiedTask.Priority;
+            oldTask.Progress = modifiedTask.Progress;
+            oldTask.ApplicationUserDetails = modifiedTask.ApplicationUserDetails;
+            oldTask.UserId = modifiedTask.UserId;
             _context.SaveChanges();
         }
     }

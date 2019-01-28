@@ -12,6 +12,7 @@ namespace ManagementTool.Roles.Repository.Interfaces
         void Insert(TrackingTask item);
         TrackingTask GetById(int id);
         void Update(TrackingTask modifiedTask);
+        void UpdateUser(TrackingTask modifiedTask);
         void Delete(int id);
         IEnumerable<TrackingTask> GetAll();
     }

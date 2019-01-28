@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,14 +17,22 @@ namespace ManagementTool.Roles.Models
         public string TaskName { get; set; }
         [DataType(DataType.MultilineText)]
         public string TaskDescription { get; set; }
-        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
-        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime TillDate { get; set; }
         public StatusEnum Status { get; set; }
         public PriorityEnum Priority { get; set; }
         public int ParentId { get; set; }
         public string Progress { get; set; }
+        [DisplayName("AssignedUser")]
+        public string  ApplicationUserDetails { get; set; }
+        [DisplayName("AssignedUser")]
+        //[NotMapped]
+        [StringLength(128)]
+        public string UserId { get; set; }
+        [NotMapped]
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
     }
 }

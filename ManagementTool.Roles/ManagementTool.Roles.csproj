@@ -223,7 +223,24 @@
     <Compile Include="Migrations\201901231112331_ProgressListAdded.Designer.cs">
       <DependentUpon>201901231112331_ProgressListAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901241259563_AddedRelationBetweenTasksAndUsers.cs" />
+    <Compile Include="Migrations\201901241259563_AddedRelationBetweenTasksAndUsers.Designer.cs">
+      <DependentUpon>201901241259563_AddedRelationBetweenTasksAndUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901241359063_AddedUserToTask.cs" />
+    <Compile Include="Migrations\201901241359063_AddedUserToTask.Designer.cs">
+      <DependentUpon>201901241359063_AddedUserToTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901242056399_OveridedMethodForModel.cs" />
+    <Compile Include="Migrations\201901242056399_OveridedMethodForModel.Designer.cs">
+      <DependentUpon>201901242056399_OveridedMethodForModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901251117485_UserDetailsFieldAdded.cs" />
+    <Compile Include="Migrations\201901251117485_UserDetailsFieldAdded.Designer.cs">
+      <DependentUpon>201901251117485_UserDetailsFieldAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AssignUserToTask.cs" />
     <Compile Include="Models\Enumerations\PriorityEnum.cs" />
     <Compile Include="Models\Enumerations\StatusEnum.cs" />
     <Compile Include="Models\TrackingTask.cs" />
@@ -241,6 +258,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -261,7 +279,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\proressBar.js" />
+    <Content Include="Scripts\modules\abstractTask.js" />
+    <Content Include="Scripts\modules\setup.js" />
+    <Content Include="Scripts\modules\subTask.js" />
+    <Content Include="Scripts\modules\task.js" />
+    <Content Include="Scripts\modules\taskError.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -273,8 +296,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -298,7 +319,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\TrackingTask\Create.cshtml" />
     <Content Include="Views\TrackingTask\Edit.cshtml" />
-    <Content Include="Views\TrackingTask\CreateSubTask.cshtml" />
     <Content Include="Views\TrackingTask\Delete.cshtml" />
     <Content Include="Views\TrackingTask\Details.cshtml" />
     <Content Include="Views\TrackingTask\Index.cshtml" />
@@ -309,6 +329,11 @@
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Account\AdminRegister.cshtml" />
     <Content Include="Views\Shared\AuthorizeFailed.cshtml" />
+    <Content Include="Views\TrackingTask\AssignUser.cshtml" />
+    <Content Include="Views\TrackingTask\CreateSubTask.cshtml" />
+    <Content Include="Views\TrackingTask\EditSubtask.cshtml" />
+    <Content Include="Views\TrackingTask\DeleteSubtask.cshtml" />
+    <Content Include="Views\TrackingTask\SubtaskDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,6 +366,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901231112331_ProgressListAdded.resx">
       <DependentUpon>201901231112331_ProgressListAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241259563_AddedRelationBetweenTasksAndUsers.resx">
+      <DependentUpon>201901241259563_AddedRelationBetweenTasksAndUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901241359063_AddedUserToTask.resx">
+      <DependentUpon>201901241359063_AddedUserToTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901242056399_OveridedMethodForModel.resx">
+      <DependentUpon>201901242056399_OveridedMethodForModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901251117485_UserDetailsFieldAdded.resx">
+      <DependentUpon>201901251117485_UserDetailsFieldAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

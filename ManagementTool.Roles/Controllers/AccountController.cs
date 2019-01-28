@@ -67,8 +67,6 @@ namespace ManagementTool.Roles.Controllers
             }
         }
 
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -76,8 +74,6 @@ namespace ManagementTool.Roles.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -148,27 +144,13 @@ namespace ManagementTool.Roles.Controllers
                     return View(model);
             }
         }
-
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
-      // [Authorize(Roles ="Admin")]
         public ActionResult Register()
         {
-            //List<SelectListItem> list = new List<SelectListItem>();
-            //foreach(var role in RoleManager.Roles)
-            //{
-            //    list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
-            //}
-            //ViewBag.RoleName = list;
-            return View();
+           return View();
         }
-
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        //[Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -180,19 +162,11 @@ namespace ManagementTool.Roles.Controllers
                 {
                     result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
         [CustomAuthorize(Roles = "Admin")]
@@ -207,10 +181,7 @@ namespace ManagementTool.Roles.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
-        //[AllowAnonymous]
         [CustomAuthorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AdminRegister(AdminRegisterViewModel model)
@@ -235,13 +206,8 @@ namespace ManagementTool.Roles.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-
-        //
-        // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -253,16 +219,12 @@ namespace ManagementTool.Roles.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
-        //
-        // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -289,16 +251,12 @@ namespace ManagementTool.Roles.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
-        //
-        // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
@@ -330,9 +288,6 @@ namespace ManagementTool.Roles.Controllers
             AddErrors(result);
             return View();
         }
-
-        //
-        // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
@@ -453,18 +408,13 @@ namespace ManagementTool.Roles.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult LogOut()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
-
-        //
-        // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {

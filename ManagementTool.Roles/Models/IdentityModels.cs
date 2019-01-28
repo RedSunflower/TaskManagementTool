@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace ManagementTool.Roles.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public virtual ICollection<TrackingTask> Tasks { get; set; }
     }
     public class ApplicationRole : IdentityRole
     {
@@ -35,11 +37,12 @@ namespace ManagementTool.Roles.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        public DbSet<TrackingTask> Tasks { get; set; }
         public static ApplicationDbContext Create()
         {
+            
             return new ApplicationDbContext();
         }
+        public virtual DbSet<TrackingTask> Tasks { get; set; }
 
     }
 }
