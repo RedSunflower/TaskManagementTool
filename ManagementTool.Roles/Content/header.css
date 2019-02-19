@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+.header {
+    display: inline-flex;
+    width: 100%;
+    padding: 2% 0;
+    border-bottom: 1px solid #dddddd;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    background-color: #fff;
+}
+
+.header__logo {
+    display: inherit;
+    font-family: 'Lato', sans-serif;
+    font-size: 40px;
+    color: #6a91b8;
+    font-weight: bold;
+    align-self: center;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    font-variant: all-petite-caps;
+    width: 100%;
+    justify-content: center;
+}
+
+

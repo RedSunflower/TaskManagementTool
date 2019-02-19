@@ -4,6 +4,13 @@
     ViewBag.Title = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
+<h1 class="text-danger assigned-font">Error</h1>
+<h2 class="text-danger table-font">An error occurred while processing your request.</h2>
+<div>
+    <p>
+        <b>Exception :</b> @Model.Exception.Message<br />
+        <b>Controller :</b> @Model.ControllerName<br />
+        <b>Action :</b> @Model.ActionName<br />
+        <b>Stack Trace : </b> @Model.Exception.StackTrace
+    </p>
+</div>

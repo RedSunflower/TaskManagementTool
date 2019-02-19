@@ -4,15 +4,14 @@
     ViewBag.Title = "Delete role";
 }
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="table-font">Are you sure you want to delete this?</h3>
 <div>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
@@ -21,9 +20,9 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color table-font">
+        <input type="submit" value="Delete" class="btn btn-default">
+        <input type="button" value="Back to List" onclick="location.href='@Url.Action("Index")'" class="btn btn-default action_title" />
+    </div>
     }
 </div>

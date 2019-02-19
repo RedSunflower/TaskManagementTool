@@ -1,16 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
 * {
     margin: 0;
     padding: 0;
 }
 
 .body-content {
-    padding-top: 5%;
+    padding-top: 3%;
+}
+.page {
+    width: 75%;
+    display: inline-flex;
+    flex-direction: column;
+    background-color: rgba(252, 251, 251, 0.76);
+}
+.assigned-font {
+    font-family: 'Lato', sans-serif;
+}
+tr {
+    background-color: rgba(252, 251, 251, 0.76);
 }
 
-tr {
-    background-color: #fafafa;
-    color: #6d6d6d;
-}
 
 .actions a {
     display: inline-flex;
@@ -28,16 +37,6 @@ h2 {
     color: #6d6d6d;
 }
 
-a {
-    color: #fff;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #ce5107;
-    text-decoration: none;
-    background-color: #ddd;
-}
 
 .container__main-button {
     margin-bottom: 3%;
@@ -54,3 +53,6 @@ a:hover {
  .actions {
      width: 20%;
  }
+td {
+    width: 3%;
+}

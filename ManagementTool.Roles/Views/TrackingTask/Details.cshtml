@@ -1,67 +1,54 @@
-﻿@model ManagementTool.Roles.Models.TrackingTask
-
+﻿@model ManagementTool.Roles.ViewModels.TrackingTaskViewModel
 @{
     ViewBag.Title = "Task Details";
 }
-
 <div>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.ProjectName)
-
         </dt>
-
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.ProjectName)
         </dd>
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.TaskName)
         </dt>
-
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.TaskName)
         </dd>
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.TaskDescription)
         </dt>
-
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.TaskDescription)
         </dd>
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
-
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
-
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.TillDate)
         </dt>
-
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.TillDate)
         </dd>
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.Status)
         </dt>
-
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.Status)
         </dd>
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.Priority)
         </dt>
-
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.Priority)
         </dd>
-
     </dl>
 </div>
-<p>
+<p class="action_title">
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

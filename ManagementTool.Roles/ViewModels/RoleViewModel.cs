@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ManagementTool.DAL.Models;
 using ManagementTool.Roles.Models;
 
 namespace ManagementTool.Roles.ViewModels

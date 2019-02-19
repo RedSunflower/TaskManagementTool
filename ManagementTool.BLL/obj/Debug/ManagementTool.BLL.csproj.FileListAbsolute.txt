@@ -1,0 +1,16 @@
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\ManagementTool.BLL.dll
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\ManagementTool.BLL.pdb
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\ManagementTool.DAL.dll
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\EntityFramework.dll
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\ManagementTool.DAL.pdb
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\ManagementTool.DAL.dll.config
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\bin\Debug\EntityFramework.xml
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\obj\Debug\ManagementTool.BLL.csprojAssemblyReference.cache
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\obj\Debug\ManagementTool.BLL.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\obj\Debug\ManagementTool.BLL.csproj.CopyComplete
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\obj\Debug\ManagementTool.BLL.dll
+C:\Users\User\Desktop\ProjectModified\ManagementTool.Roles\ManagementTool.BLL\obj\Debug\ManagementTool.BLL.pdb

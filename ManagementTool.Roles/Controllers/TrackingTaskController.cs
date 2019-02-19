@@ -4,16 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using ManagementTool.Roles.Models;
-using ManagementTool.Roles.Repository;
+using ManagementTool.DAL.Models;
+using ManagementTool.DAL.Repository;
 using Microsoft.AspNet.Identity.Owin;
+using ManagementTool.BLL;
+using ManagementTool.Roles.ViewModels;
+using AutoMapper;
 
 namespace ManagementTool.Roles.Controllers
 {
     public class TrackingTaskController : Controller
     {
         private ApplicationUserManager _userManager;
-        private TrackingTaskRepository trackingTaskRepository = new TrackingTaskRepository();
+        private readonly ITrackingTaskBusinessLogic businessLogic;
+        public TrackingTaskController(ITrackingTaskBusinessLogic logic)
+        {
+            businessLogic = logic;
+        }
+        public TrackingTaskController()
+        {
+        }
         public ApplicationUserManager UserManager
         {
             get
@@ -25,156 +35,272 @@ namespace ManagementTool.Roles.Controllers
                 _userManager = value;
             }
         }
-        [CustomAuthorize]
+       [CustomAuthorize]
         public ActionResult Index()
         {
-            return View(trackingTaskRepository.GetAll().OrderBy(x=>x.ProjectName));
+            var tasks = businessLogic.GetAll();
+            List<TrackingTaskViewModel> models = new List<TrackingTaskViewModel>();
+            foreach(var task in tasks)
+            {
+                models.Add(Mapper.Map<TrackingTaskViewModel>(task));
+            }
+            return View(models);
         }
+        [HttpGet]
         [CustomAuthorize(Roles = "Admin, Manager")]
         public ActionResult Details(int id)
         {
-            var task = trackingTaskRepository.GetById(id);
-            if (task == null)
+            try
+            {
+              var task = Mapper.Map<TrackingTask,TrackingTaskViewModel>(businessLogic.GetById(id));
+              return View(task);
+            }
+            catch
             {
                 return HttpNotFound();
             }
-            return View(task);
+            
         }
+        [HttpGet]
         [CustomAuthorize(Roles = "Admin, Manager")]
         public ActionResult Create()
         {
-           // ViewBag.ProgressList = CreateProgressList();
+            // ViewBag.ProgressList = CreateProgressList();
             return View();
-           
+
         }
-        
+
         [CustomAuthorize(Roles = "Admin, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TrackingTask task)
+        public ActionResult Create(TrackingTaskViewModel  taskModel)
         {
-            trackingTaskRepository.Insert(task);
-            return RedirectToAction("Index");
+            var task = Mapper.Map<TrackingTaskViewModel, TrackingTask>(taskModel);
+            try
+            {
+                businessLogic.Add(task);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
         }
+        [HttpGet]
         [CustomAuthorize(Roles = "Admin, Manager")]
         public ActionResult AssignUser(int id)
         {
             // ViewBag.ProgressList = CreateProgressList();
-            var task = trackingTaskRepository.GetById(id);
-            task.ApplicationUsers = UserManager.Users.ToList();
-            return View(task);
+            try
+            {
+                var task = Mapper.Map<TrackingTask, TrackingTaskViewModel>(businessLogic.GetById(id));
+                task.ApplicationUsers = UserManager.Users.ToList();
+                return View(task);
+            }
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
         }
         [CustomAuthorize(Roles = "Admin, Manager")]
         [HttpPost]
-        public async Task<ActionResult> AssignUser(TrackingTask task)
+        public async Task<ActionResult> AssignUser(TrackingTaskViewModel taskModel)
         {
-            foreach (var user in UserManager.Users.ToList())
+            try
             {
-                if (user.Id == task.UserId)
+                var task = Mapper.Map<TrackingTaskViewModel, TrackingTask>(taskModel);
+                foreach (var user in UserManager.Users.ToList())
                 {
-                    task.ApplicationUserDetails = user.FullName + " " + user.Surname;
-                    break;
+                    if (user.Id == task.UserId)
+                    {
+                        task.ApplicationUserDetails = user.FullName + " " + user.Surname;
+                        break;
+                    }
                 }
+                businessLogic.Update(task);
+                await UserManager.SendEmailAsync(task.UserId, "You were assigned to task ",
+                    "Please login to system to see the details. Your project is " + task.ProjectName + ",your task is " + task.TaskName);
+                return RedirectToAction("Index");
             }
-            trackingTaskRepository.UpdateUser(task);
-            await UserManager.SendEmailAsync(task.UserId, "You were assigned to task ",
-                "Please login to system to see the details. Your project is "+task.ProjectName+",your task is "+task.TaskName);
-            return RedirectToAction("Index");
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
         }
+        [HttpGet]
         [CustomAuthorize(Roles = "Admin, Manager")]
         public ActionResult Edit(int id)
         {
-           // ViewBag.ProgressList = CreateProgressList();
-            var task = trackingTaskRepository.GetById(id);
-            return View(task);
+            // ViewBag.ProgressList = CreateProgressList();
+            try
+            {
+                var task = Mapper.Map<TrackingTask, TrackingTaskViewModel>(businessLogic.GetById(id));
+                return View(task);
+            }
+            catch(Exception e) 
+            {
+                return View(e.Message);
+            }
         }
 
         [CustomAuthorize(Roles = "Admin, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( TrackingTask task)
+        public ActionResult Edit(TrackingTaskViewModel taskModel)
         {
-            trackingTaskRepository.Update(task);
-            return RedirectToAction("Index");
+            var task = Mapper.Map<TrackingTaskViewModel, TrackingTask>(taskModel);
+            try
+            {
+                businessLogic.Update(task);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
         }
+        [HttpGet]
         [CustomAuthorize(Roles = "Admin, Manager")]
         public ActionResult Delete(int id)
         {
-            var task = trackingTaskRepository.GetById(id);
-            return View(task);
+            try
+            {
+                var task = Mapper.Map<TrackingTask, TrackingTaskViewModel>(businessLogic.GetById(id));
+                return View(task);
+            }
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
+            
         }
-
         [CustomAuthorize(Roles = "Admin, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(TrackingTask task)
+        public ActionResult Delete(TrackingTaskViewModel taskModel)
         {
-            var deletedTask = trackingTaskRepository.GetById(task.Id);
-            trackingTaskRepository.Delete(deletedTask.Id);
-            return RedirectToAction("Index");
+            try
+            {
+                var deletedTask = Mapper.Map<TrackingTaskViewModel, TrackingTask>(taskModel);
+                businessLogic.Delete(deletedTask.Id);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
         }
+        [HttpGet]
         [CustomAuthorize]
         public ActionResult CreateSubTask(int id)
         {
             //ViewBag.ProgressList = CreateProgressList();
-            var createdTask = trackingTaskRepository.GetById(id);
-            TrackingTask subtask = new TrackingTask();
-            subtask.ParentId = createdTask.Id;
-            subtask.ProjectName = createdTask.ProjectName;
-            subtask.ApplicationUserDetails = createdTask.ApplicationUserDetails;
-            return View(subtask);
+            try
+            {
+                var createdTask = Mapper.Map<TrackingTask, TrackingTaskViewModel>(businessLogic.GetById(id));
+                TrackingTaskViewModel subtask = new TrackingTaskViewModel();
+                subtask.ParentId = createdTask.Id;
+                subtask.ProjectName = createdTask.ProjectName;
+                subtask.ApplicationUserDetails = createdTask.ApplicationUserDetails;
+                return View(subtask);
+            }catch(Exception e)
+            {
+                return View(e.Message);
+            }
 
         }
         [CustomAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public ActionResult CreateSubTask(TrackingTask subtask)
+        public ActionResult CreateSubTask(TrackingTaskViewModel subtaskModel)
         {
-            trackingTaskRepository.Insert(subtask);
-            return RedirectToAction("Index");
+            var subtask = Mapper.Map<TrackingTaskViewModel, TrackingTask>(subtaskModel);
+            try
+            {
+                businessLogic.Add(subtask);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return View(e.Message);
+            }
+            
         }
-
+        [HttpGet]
+        [CustomAuthorize]
         public ActionResult EditSubtask(int id)
         {
             //ViewBag.ProgressList = CreateProgressList();
-            var task = trackingTaskRepository.GetById(id);
-            return View(task);
+            try
+            {
+                var task = Mapper.Map<TrackingTask, TrackingTaskViewModel>(businessLogic.GetById(id));
+                return View(task);
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         [CustomAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditSubtask(TrackingTask task)
+        public ActionResult EditSubtask(TrackingTaskViewModel taskModel)
         {
-            trackingTaskRepository.Update(task);
-            return RedirectToAction("Index");
+            var task = Mapper.Map<TrackingTaskViewModel, TrackingTask>(taskModel);
+            try
+            {
+                businessLogic.Update(task);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
         }
+        [HttpGet]
         [CustomAuthorize]
         public ActionResult DeleteSubtask(int id)
         {
-            var task = trackingTaskRepository.GetById(id);
-            return View(task);
+            try
+            {
+                var task = Mapper.Map<TrackingTask, TrackingTaskViewModel>(businessLogic.GetById(id));
+                return View(task);
+            }
+            catch (Exception e)
+            {
+                return View(e.Message);
+            }
         }
-
         [CustomAuthorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteSubtask(TrackingTask task)
+        public ActionResult DeleteSubtask(TrackingTaskViewModel taskModel)
         {
-            var deletedTask = trackingTaskRepository.GetById(task.Id);
-            trackingTaskRepository.Delete(deletedTask.Id);
-            return RedirectToAction("Index");
+            try
+            {
+                var deletedTask = Mapper.Map<TrackingTaskViewModel, TrackingTask>(taskModel);
+                businessLogic.Delete(deletedTask.Id);
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return View(e.Message);
+            }
         }
+        [HttpGet]
         [CustomAuthorize]
         public ActionResult SubtaskDetails(int id)
         {
-            var task = trackingTaskRepository.GetById(id);
-            if (task == null)
+            try
+            {
+                var task = Mapper.Map<TrackingTask, TrackingTaskViewModel>(businessLogic.GetById(id));
+                return View(task);
+            }
+            catch 
             {
                 return HttpNotFound();
             }
-            return View(task);
         }
         public List<SelectListItem> CreateProgressList()
         {

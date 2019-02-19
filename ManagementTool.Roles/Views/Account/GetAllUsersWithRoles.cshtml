@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ManagementTool.Roles.ViewModels.UserWithRoleViewModel>
+@{
+    ViewBag.Title = "GetAllUsersWithRoles";
+}
+
+<p class="create-task__title">
+    @Html.ActionLink("Create New", "AdminRegister")
+</p>
+<table class="table">
+    <tr>
+        <th class="table-font">
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th class="table-font">
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th class="table-font">
+            @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th class="table-font">
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th class="table-font">
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td class="table-font">
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td class="table-font">
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td class="table-font">
+            @Html.DisplayFor(modelItem => item.Surname)
+        </td>
+        <td class="table-font">
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td class="table-font">
+            @Html.DisplayFor(modelItem => item.Role)
+        </td>
+        <td class="action_title">
+            @Html.ActionLink("Edit", "EditUserWithRole", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "DeleteUserWithRole", new { id = item.Id })
+        </td>
+    </tr>
+    }
+
+</table>
+

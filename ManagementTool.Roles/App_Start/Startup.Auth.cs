@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using ManagementTool.Roles.Models;
+using ManagementTool.DAL.Models;
 
 namespace ManagementTool.Roles
 {

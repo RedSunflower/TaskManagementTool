@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ManagementTool.DAL.Models.ApplicationUser">
+    <Position X="9" Y="0.75" Width="6" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAIAAAAAAAAAABAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ManagementTool.DAL.Models.ApplicationRole">
+    <Position X="9" Y="3.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ManagementTool.DAL.Models.ApplicationDbContext">
+    <Position X="2.75" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tasks" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ManagementTool.DAL.Models.TrackingTask">
+    <Position X="2.75" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAMAAAAAAAEDAQAAAgAAAAAAAAAAgAgAEDAAAA=</HashCode>
+      <FileName>Models\TrackingTask.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ApplicationUsers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ManagementTool.DAL.Repository.TrackingTaskRepository">
+    <Position X="7" Y="5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAABAAAAAAAAAAAAQEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Repository\TrackingTaskRepository.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ManagementTool.DAL.Repository.Interfaces.IRepository">
+    <Position X="10.75" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAQEAAAAAAgAAAAAAAIA=</HashCode>
+      <FileName>Repository\Interfaces\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ManagementTool.DAL.Models.Enumerations.PriorityEnum">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAARAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Enumerations\PriorityEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ManagementTool.DAL.Models.Enumerations.StatusEnum">
+    <Position X="1" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Models\Enumerations\StatusEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

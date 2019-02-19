@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ManagementTool.DAL.Models;
 using ManagementTool.Roles.Models;
 using ManagementTool.Roles.ViewModels;
 using Microsoft.AspNet.Identity.Owin;

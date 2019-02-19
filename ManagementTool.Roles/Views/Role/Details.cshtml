@@ -3,21 +3,19 @@
 @{
     ViewBag.Title = "Role details";
 }
-
 <div>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="table-font">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
-        <dd>
+        <dd class="table-font">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
     </dl>
 </div>
-<p>
+<p class="action_title">
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -45,10 +45,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -190,75 +218,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\EmailService.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\AutoMapperProfile.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TrackingTaskController.cs" />
     <Compile Include="CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901182019159_TrackingTaskModelAdded.cs" />
-    <Compile Include="Migrations\201901182019159_TrackingTaskModelAdded.Designer.cs">
-      <DependentUpon>201901182019159_TrackingTaskModelAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901182114339_FullNameAndSurname.cs" />
-    <Compile Include="Migrations\201901182114339_FullNameAndSurname.Designer.cs">
-      <DependentUpon>201901182114339_FullNameAndSurname.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901182149409_Role.cs" />
-    <Compile Include="Migrations\201901182149409_Role.Designer.cs">
-      <DependentUpon>201901182149409_Role.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901182242511_roleAdded.cs" />
-    <Compile Include="Migrations\201901182242511_roleAdded.Designer.cs">
-      <DependentUpon>201901182242511_roleAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901231112331_ProgressListAdded.cs" />
-    <Compile Include="Migrations\201901231112331_ProgressListAdded.Designer.cs">
-      <DependentUpon>201901231112331_ProgressListAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901241259563_AddedRelationBetweenTasksAndUsers.cs" />
-    <Compile Include="Migrations\201901241259563_AddedRelationBetweenTasksAndUsers.Designer.cs">
-      <DependentUpon>201901241259563_AddedRelationBetweenTasksAndUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901241359063_AddedUserToTask.cs" />
-    <Compile Include="Migrations\201901241359063_AddedUserToTask.Designer.cs">
-      <DependentUpon>201901241359063_AddedUserToTask.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901242056399_OveridedMethodForModel.cs" />
-    <Compile Include="Migrations\201901242056399_OveridedMethodForModel.Designer.cs">
-      <DependentUpon>201901242056399_OveridedMethodForModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901251117485_UserDetailsFieldAdded.cs" />
-    <Compile Include="Migrations\201901251117485_UserDetailsFieldAdded.Designer.cs">
-      <DependentUpon>201901251117485_UserDetailsFieldAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AssignUserToTask.cs" />
-    <Compile Include="Models\Enumerations\PriorityEnum.cs" />
-    <Compile Include="Models\Enumerations\StatusEnum.cs" />
-    <Compile Include="Models\TrackingTask.cs" />
-    <Compile Include="Repository\Interfaces\IRepository.cs" />
-    <Compile Include="Repository\TrackingTaskRepository.cs" />
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\TrackingTaskViewModel.cs" />
+    <Compile Include="ViewModels\UserWithRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\content.css" />
+    <Content Include="Content\footer.css" />
+    <Content Include="Content\header.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\styles.css" />
+    <Content Include="Content\task_creation.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -268,6 +260,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="RolesClassDiagram.cd" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -284,7 +278,6 @@
     <Content Include="Scripts\modules\subTask.js" />
     <Content Include="Scripts\modules\task.js" />
     <Content Include="Scripts\modules\taskError.js" />
-    <Content Include="Scripts\script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -297,24 +290,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\TrackingTask\Create.cshtml" />
@@ -334,6 +315,9 @@
     <Content Include="Views\TrackingTask\EditSubtask.cshtml" />
     <Content Include="Views\TrackingTask\DeleteSubtask.cshtml" />
     <Content Include="Views\TrackingTask\SubtaskDetails.cshtml" />
+    <Content Include="Views\Account\GetAllUsersWithRoles.cshtml" />
+    <Content Include="Views\Account\EditUserWithRole.cshtml" />
+    <Content Include="Views\Account\DeleteUserWithRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,33 +336,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901182019159_TrackingTaskModelAdded.resx">
-      <DependentUpon>201901182019159_TrackingTaskModelAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901182114339_FullNameAndSurname.resx">
-      <DependentUpon>201901182114339_FullNameAndSurname.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901182149409_Role.resx">
-      <DependentUpon>201901182149409_Role.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901182242511_roleAdded.resx">
-      <DependentUpon>201901182242511_roleAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901231112331_ProgressListAdded.resx">
-      <DependentUpon>201901231112331_ProgressListAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901241259563_AddedRelationBetweenTasksAndUsers.resx">
-      <DependentUpon>201901241259563_AddedRelationBetweenTasksAndUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901241359063_AddedUserToTask.resx">
-      <DependentUpon>201901241359063_AddedUserToTask.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901242056399_OveridedMethodForModel.resx">
-      <DependentUpon>201901242056399_OveridedMethodForModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901251117485_UserDetailsFieldAdded.resx">
-      <DependentUpon>201901251117485_UserDetailsFieldAdded.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\ManagementTool.BLL\ManagementTool.BLL.csproj">
+      <Project>{70ab076f-b01d-4be3-a9ef-33ba8b814776}</Project>
+      <Name>ManagementTool.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagementTool.DAL\ManagementTool.DAL.csproj">
+      <Project>{06bd42cc-edd9-4f97-a8fe-bed1272b6620}</Project>
+      <Name>ManagementTool.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

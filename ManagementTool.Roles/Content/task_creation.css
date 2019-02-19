@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400');
+
+.create-task__title {
+    display: inherit;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    color: #6a91b8;
+    font-weight: bold;
+    align-self: center;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    width: 13%;
+}
+.action_title {
+    font-family: 'Raleway', sans-serif;
+    color: #6a91b8;
+}
+.table-font {
+    font-family: 'Raleway', sans-serif;
+}
+

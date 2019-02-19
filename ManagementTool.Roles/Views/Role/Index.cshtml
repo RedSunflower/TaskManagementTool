@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "All roles";
 }
-<hr/>
-<p>
+<p class="action_title">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th class="table-font">
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th></th>
@@ -17,15 +16,14 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td class="table-font">
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        <td>
+        <td class="action_title">
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
-
 </table>
